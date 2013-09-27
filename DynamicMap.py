@@ -1,5 +1,13 @@
 #!/usr/bin/env python
 
+"""
+Program and Art made by Eric Severson
+
+Program was made to test some of my ideas on movement within a game.
+
+The map is grid based, whereas the movement is not.
+"""
+
 import sys
 
 import pygame
@@ -8,6 +16,11 @@ import RPGDynamic
 
 
 def setup():
+"""
+Creates the map using a pixel map, where specific colors map to specific tiles.
+
+returns hero sprite, the map, and sprite group of water tiles
+"""
     tiles = pygame.image.load('Images/MapTiles.png')
     tile_size = (32, 32)
     # Distinct Tiles used to build map
@@ -20,11 +33,11 @@ def setup():
 
     pix_map = pygame.image.load('Images/Maps/GrassyLakes.png')
     game_map = pygame.Surface((32*pix_map.get_width(), 32*pix_map.get_height()))
-    # Fullscreen
     hero = RPGDynamic.Player(pygame.image.load('Images/Hero.png'), tile_size)
     all_tiles = pygame.sprite.Group()
     water_group = pygame.sprite.Group()
 
+    # Populate the map with tiles. Water tiles are sprites.
     for i in range(pix_map.get_height()):
         for j in range(pix_map.get_width()):
             curr_color = pix_map.get_at((j, i))
@@ -52,7 +65,7 @@ def setup():
     return hero, game_map, water_group
 
 def game_loop(hero, game_map, water_group):
-    # start at the origin
+    # Start at the origin
     map_x, map_y = 0, 0
     map_left = True
     map_right = False
